@@ -1,4 +1,16 @@
 services:
+  proxy:
+    image: nginx:1.27.5-alpine
+    container_name: proxy
+    restart: always
+    volumes:
+      - ./~conf/nginx:/app/etc/nginx:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - gitea
+
   gitea:
     image: docker.gitea.com/gitea:1.23.8
     container_name: gitea
