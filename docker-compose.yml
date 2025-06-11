@@ -10,14 +10,17 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "222:222"
     depends_on:
       - gitea
 
   gitea:
-    image: docker.gitea.com/gitea:1.23.8
+    image: docker.gitea.com/gitea:1.24.0
     container_name: gitea
     restart: always
     environment:
+      - USER_UID=1000
+      - USER_GID=1000
       - GITEA__database__DB_TYPE=mysql
       - GITEA__database__HOST=gitea-db:3306
       - GITEA__database__NAME=gitea
@@ -32,7 +35,7 @@ services:
       - gitea-db
 
   gitea-db:
-    image: docker.io/library/mysql:8
+    image: mysql:8.0
     container_name: gitea-db
     restart: always
     environment:
