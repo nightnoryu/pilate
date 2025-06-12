@@ -17,7 +17,7 @@ services:
       - '/etc/localtime:/etc/localtime:ro'
     networks:
       - raspberry
-      - gitea
+      - internal
     depends_on:
       - gitea-db
 
@@ -34,7 +34,7 @@ services:
       - './data/gitea-act-runner:/data'
       - '/var/run/docker.sock:/var/run/docker.sock'
     networks:
-      - gitea
+      - internal
     depends_on:
       - gitea
       - gitea-db
@@ -52,9 +52,9 @@ services:
     volumes:
       - './data/gitea-db:/var/lib/mysql'
     networks:
-      - gitea
+      - internal
 
 networks:
-  gitea:
+  internal:
   raspberry:
     external: true
