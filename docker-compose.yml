@@ -1,16 +1,16 @@
 services:
-  proxy:
+  nginx:
     image: nginx:1.27.5-alpine
-    container_name: proxy
+    container_name: nginx
     restart: always
     volumes:
-      - ./log:/var/log/nginx
-      - ./~conf/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./certs:/etc/nginx/certs:ro
+      - './log/nginx:/var/log/nginx'
+      - './~conf/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
+      - './certs:/etc/nginx/certs:ro'
     ports:
-      - "80:80"
-      - "443:443"
-      - "222:222"
+      - '80:80'
+      - '443:443'
+      - '222:222'
     depends_on:
       - gitea
 
@@ -19,18 +19,18 @@ services:
     container_name: gitea
     restart: always
     environment:
-      - USER_UID=1000
-      - USER_GID=1000
-      - GITEA__database__DB_TYPE=mysql
-      - GITEA__database__HOST=gitea-db:3306
-      - GITEA__database__NAME=gitea
-      - GITEA__database__USER=gitea
-      - GITEA__database__PASSWD=gitea
+      USER_UID: 1000
+      USER_GID: 1000
+      GITEA__database__DB_TYPE: mysql
+      GITEA__database__HOST: gitea-db:3306
+      GITEA__database__NAME: gitea
+      GITEA__database__USER: gitea
+      GITEA__database__PASSWD: gitea
     volumes:
-      - ./data/gitea:/var/lib/gitea
-      - ./~conf/gitea:/etc/gitea
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
+      - './data/gitea:/var/lib/gitea'
+      - './~conf/gitea:/etc/gitea'
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
     depends_on:
       - gitea-db
 
@@ -39,9 +39,9 @@ services:
     container_name: gitea-db
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=gitea
-      - MYSQL_USER=gitea
-      - MYSQL_PASSWORD=gitea
-      - MYSQL_DATABASE=gitea
+      MYSQL_ROOT_PASSWORD: gitea
+      MYSQL_USER: gitea
+      MYSQL_PASSWORD: gitea
+      MYSQL_DATABASE: gitea
     volumes:
-      - ./data/mysql:/var/lib/mysql
+      - './data/mysql:/var/lib/mysql'
