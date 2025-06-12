@@ -3,7 +3,7 @@ services:
     image: gitea/gitea:1.24.0-rootless
     container_name: gitea
     restart: always
-    user: '1000'
+    user: "$USER_ID"
     environment:
       GITEA__database__DB_TYPE: mysql
       GITEA__database__HOST: gitea-db:3306
@@ -25,7 +25,7 @@ services:
     image: gitea/act_runner:nightly
     container_name: gitea-act-runner
     restart: always
-    user: '1000'
+    user: "$USER_ID"
     environment:
       GITEA_INSTANCE_URL: http://gitea:3000
       GITEA_RUNNER_REGISTRATION_TOKEN: '#SECRET'
@@ -43,7 +43,7 @@ services:
     image: mysql:8.0
     container_name: gitea-db
     restart: always
-    user: '1000'
+    user: "$USER_ID"
     environment:
       MYSQL_ROOT_PASSWORD: svxTbcF3
       MYSQL_DATABASE: gitea

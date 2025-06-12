@@ -3,7 +3,7 @@ services:
     image: grafana/grafana:12.0.1
     container_name: grafana
     restart: unless-stopped
-    user: '1000'
+    user: "$USER_ID"
     volumes:
       - './data:/var/lib/grafana'
     networks:

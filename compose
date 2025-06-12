@@ -4,10 +4,13 @@ set -o errexit
 
 export WORKDIR=$(dirname "$(readlink -f "$0")")
 export USER_ID=$(id -u)
+COMPOSE_FILE="$1/docker-compose.yml"
+DOCKER_NETWORK=raspberry
+
+docker network inspect "$DOCKER_NETWORK" >/dev/null 2>&1 || \
+  docker network create --driver bridge "$DOCKER_NETWORK"
 
 pushd "$WORKDIR" >/dev/null
-
-COMPOSE_FILE="$1/docker-compose.yml"
 
 if ! [ -f "$COMPOSE_FILE" ]; then
   SCRIPT_NAME=$(basename "$0")
