@@ -1,4 +1,4 @@
-# Pilate
+# :strawberry: Pilate [![Github release](https://img.shields.io/github/release/nightnoryu/pilate.svg)](https://github.com/nightnoryu/pilate/releases)
 
 Configuration files for my Raspberry Pi 5 hosted services.
 
@@ -14,6 +14,7 @@ Configuration files for my Raspberry Pi 5 hosted services.
 
 ### Requirements
 
+- Raspberry PI 5 (with 8GB+ RAM)
 - Ubuntu (Server or Desktop)
 - Docker and docker compose
 
