@@ -1,6 +1,6 @@
 # :strawberry: Pilate [![Github release](https://img.shields.io/github/release/nightnoryu/pilate.svg)](https://github.com/nightnoryu/pilate/releases)
 
-Configuration files for my Raspberry Pi 5 hosted services.
+Configuration files for my LAN infrastructure on Raspberry Pi.
 
 ## Components
 
