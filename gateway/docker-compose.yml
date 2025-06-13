@@ -10,9 +10,14 @@ services:
       - './conf.d:/etc/nginx/conf.d:ro'
       - './certs:/etc/ssl:ro'
     ports:
+      # HTTP interfaces
       - '80:80'
       - '443:443'
+      # Gitea SSH
       - '2222:2222'
+      # Pihole DNS
+      - '53:53/tcp'
+      - '53:53/udp'
     networks:
       - raspberry
 
