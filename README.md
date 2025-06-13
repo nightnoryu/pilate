@@ -4,10 +4,11 @@ Configuration files for my LAN infrastructure on Raspberry Pi.
 
 ## Components
 
+- DNS: [Pi-hole](https://pi-hole.net)
 - Git server: [Gitea](https://about.gitea.com/products/gitea)
-  - with MySQL 8 as database backend
+  - with PostgreSQL as database backend
   - and an [act_runner](https://gitea.com/gitea/act_runner) worker for CI/CD via Gitea Actions
-- Monitoring system: [Grafana](https://grafana.com)
+- Monitoring stack: [Grafana](https://grafana.com)
 - Reverse proxy gateway: [Nginx](https://nginx.org)
 
 ## Installation
@@ -28,6 +29,7 @@ The whole system is be managed with a simple convenience script: `compose`. The 
 
 ```shell
 # Start all the services
+./compose pihole up -d
 ./compose gitea up -d
 ./compose grafana up -d
 ./compose gateway up -d

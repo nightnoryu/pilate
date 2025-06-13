@@ -5,8 +5,8 @@ services:
     restart: always
     user: "$USER_ID"
     environment:
-      GITEA__database__DB_TYPE: mysql
-      GITEA__database__HOST: gitea-db:3306
+      GITEA__database__DB_TYPE: postgres
+      GITEA__database__HOST: gitea-db:5432
       GITEA__database__NAME: gitea
       GITEA__database__USER: gitea
       GITEA__database__PASSWD: b7ysaoyH
@@ -40,17 +40,16 @@ services:
       - gitea-db
 
   gitea-db:
-    image: mysql:8.0
+    image: postgres:17.5-alpine
     container_name: gitea-db
     restart: always
     user: "$USER_ID"
     environment:
-      MYSQL_ROOT_PASSWORD: svxTbcF3
-      MYSQL_DATABASE: gitea
-      MYSQL_USER: gitea
-      MYSQL_PASSWORD: b7ysaoyH
+      POSTGRES_DB: gitea
+      POSTGRES_USER: gitea
+      POSTGRES_PASSWORD: b7ysaoyH
     volumes:
-      - './data/gitea-db:/var/lib/mysql'
+      - './data/gitea-db:/var/lib/postgresql/data'
     networks:
       - internal
 
