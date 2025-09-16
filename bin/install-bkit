@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -o errexit
+
+BKIT_VERSION="1.0.0"
+BASE_URL="https://github.com/nightnoryu/bkit/releases/download/v${BKIT_VERSION}/bkit_${BKIT_VERSION}_linux_arm64.tar.gz"
+
+# Download & extract
+curl -L -o bkit.tar.gz "$BASE_URL"
+mkdir -p ./bkit
+tar -zxf bkit.tar.gz -C ./bkit
+
+# Install
+sudo mv ./bkit/bkit /usr/bin/bkit
+
+# Clean up
+rm -r ./bkit
+
+echo "bkit installed OK"
