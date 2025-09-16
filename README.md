@@ -22,21 +22,3 @@ Configuration files for my LAN infrastructure on Raspberry Pi.
 ### Bootstrapping
 
 TODO
-
-## Managing
-
-The whole system is be managed with a simple convenience script: `compose`. The first argument is the service directory (e.g. `gitea` or `gateway`) and the others are the usual `docker compose` arguments. For example:
-
-```shell
-# Start all the services
-./compose pihole up -d
-./compose gitea up -d
-./compose grafana up -d
-./compose gateway up -d
-
-# Check the logs for gateway
-./compose gateway logs gateway
-
-# Check the statuses of gitea containers
-./compose gitea ps
-```
