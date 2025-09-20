@@ -2,8 +2,7 @@ services:
   gateway:
     image: nginx:1.27.5-alpine
     container_name: gateway
-    restart: always
-    user: "$USER_ID"
+    restart: unless-stopped
     volumes:
       - './log/nginx:/var/log/nginx'
       - './config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
@@ -15,38 +14,17 @@ services:
       - '443:443'
       # Gitea SSH
       - '2222:2222'
-      # Pihole DNS
-      - '53:53/tcp'
-      - '53:53/udp'
+      # Dokku SSH
+      - '3022:3022'
     depends_on:
       - gitea
+      - dokku
       - grafana
-      - pihole
-
-  pihole:
-    image: pihole/pihole:2025.06.1
-    container_name: pihole
-    restart: unless-stopped
-    user: "$USER_ID"
-    environment:
-      TZ: 'Europe/Moscow'
-      FTLCONF_webserver_api_password: 'pV4Num'
-    volumes:
-      - './data/pihole:/etc/pihole'
-
-  grafana:
-    image: grafana/grafana:12.0.1
-    container_name: grafana
-    restart: always
-    user: "$USER_ID"
-    volumes:
-      - './data/grafana:/var/lib/grafana'
 
   gitea:
     image: gitea/gitea:1.24.0-rootless
     container_name: gitea
-    restart: always
-    user: "$USER_ID"
+    restart: unless-stopped
     environment:
       GITEA__database__DB_TYPE: postgres
       GITEA__database__HOST: gitea-db:5432
@@ -64,8 +42,7 @@ services:
   gitea-act-runner:
     image: gitea/act_runner:nightly
     container_name: gitea-act-runner
-    restart: always
-    user: "$USER_ID"
+    restart: unless-stopped
     environment:
       GITEA_INSTANCE_URL: http://gitea:3000
       GITEA_RUNNER_REGISTRATION_TOKEN: '#SECRET'
@@ -80,11 +57,30 @@ services:
   gitea-db:
     image: postgres:17.5-alpine
     container_name: gitea-db
-    restart: always
-    user: "$USER_ID"
+    restart: unless-stopped
     environment:
       POSTGRES_DB: gitea
       POSTGRES_USER: gitea
       POSTGRES_PASSWORD: b7ysaoyH
     volumes:
       - './data/gitea-db:/var/lib/postgresql/data'
+
+  dokku:
+    image: dokku/dokku:0.36.7
+    container_name: dokku
+    restart: unless-stopped
+    volumes:
+      - '/var/lib/dokku:/mnt/dokku'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    environment:
+      DOKKU_HOSTNAME: dokku.raspberry.lan
+      DOKKU_HOST_ROOT: /var/lib/dokku/home/dokku
+      DOKKU_LIB_HOST_ROOT: /var/lib/dokku/var/lib/dokku
+
+  grafana:
+    image: grafana/grafana:12.0.1
+    container_name: grafana
+    restart: unless-stopped
+    volumes:
+      - './data/grafana:/var/lib/grafana'
+
