@@ -1,4 +1,4 @@
-# :strawberry: Pilate [![Github release](https://img.shields.io/github/release/nightnoryu/pilate.svg)](https://github.com/nightnoryu/pilate/releases)
+# :strawberry: Pilate
 
 Configuration files for my LAN infrastructure on Raspberry Pi.
 
